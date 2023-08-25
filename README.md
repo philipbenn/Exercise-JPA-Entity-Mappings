@@ -2,9 +2,9 @@ The idea with, and reasons for why to use, a ORM-mapper
 Brugen af ORM-mapper gør det simplere at arbejde med database, da du kan opbygge en database i din kode, i stedet for inde i mysql. 
    
 The meaning of the terms JPA, Hibernate and Spring Data JPA and how they are connected
-JPA:
-Hibernate:
-Spring Data JPA:
+JPA:  JPA giver en mulighed for at arbejde med databaser ved at bruge objektorienteret programmering, hvor de kan bruge Java-objekter til at repræsentere data i databasen.
+Hibernate: Det er et libary i java, der bruges til at gøre arbejdet lettere at mappe Java-objekter til databasetabeller.
+Spring Data JPA: Spring Data JPA tilbyder en række foruddefinerede metoder
    
 How to create simple Java entities and map them to a database via the Spring Data API
 Ved hjælp af @Table, @Id og @Column annotationerne i entity klassen, kan man opsætte en tabel med kollonner og primær nøgle,
@@ -17,10 +17,8 @@ How to auto generate IDs, and how to ensure we are using  a specific database's 
 Jeg bruger annotationerne @Id og @GeneratedValue til at identificere primær nøglen, og auto generere en unik værdi.
    
 How to use and define repositories and relevant query methods using Spring Data JPAs repository pattern
-   How you did that in your code
-   
-How to write simple "integration" tests, using H2 as a mock-database instead of MySQL
-   How you did that in your code
+   Først laver du en entity klasse, med de relevante annotationer der skal bruges. Derefter kan du så lave en repository interface der extender JPARepository,
+   som der så giver der adgang til en masse crud metoder.
    
 How to add (dev) connection details for you local MySQL database
 Inde i application properties tilføjede jeg et url til min database, samt mit username og password til at kunne logge ind på sql workbench.
