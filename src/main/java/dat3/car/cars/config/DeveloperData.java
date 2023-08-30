@@ -6,17 +6,17 @@ import dat3.car.cars.repository.CarRepository;
 import dat3.car.cars.repository.MemberRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Controller;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Configuration
 public class DeveloperData implements ApplicationRunner {
 
     // Constructor Injections
-    private CarRepository carRepository;
-    private MemberRepository memberRepository;
+    private final CarRepository carRepository;
+    private final MemberRepository memberRepository;
 
     public DeveloperData(CarRepository carRepository, MemberRepository memberRepository) {
         this.carRepository = carRepository;
@@ -25,10 +25,11 @@ public class DeveloperData implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        createCars();
-        createMembers();
+        // createCars();
+        // createMembers();
     }
 
+    // Method that initiates members (Made By ChatGPT)
     public void createMembers() {
         List<Member> members = new ArrayList<>();
         members.add(new Member("john_doe", "password123", "john@example.com", "John", "Doe", "123 Main St", "Springfield", "12345"));
@@ -45,6 +46,7 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.saveAll(members);
     }
 
+    // Method that initiates cars (Made By ChatGPT)
     public void createCars() {
         List<Car> cars = new ArrayList<>();
         cars.add(new Car("Toyota", "Corolla", 60.0, 10));
