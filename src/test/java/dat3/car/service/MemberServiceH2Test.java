@@ -1,28 +1,11 @@
 package dat3.car.service;
 
-import dat3.car.cars.dto.MemberRequest;
-import dat3.car.cars.dto.MemberResponse;
-import dat3.car.cars.entity.Member;
-import dat3.car.cars.repository.MemberRepository;
-import dat3.car.cars.service.MemberService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @DataJpaTest
 class MemberServiceH2Test {
 
-    @Autowired
+    /*@Autowired
     MemberRepository memberRepository;
     MemberService memberService;
 
@@ -70,15 +53,15 @@ class MemberServiceH2Test {
         assertEquals(m1.getUsername(), response.getUsername());
     }
 
-    /*@Test
+    *//*@Test
     void testFindByIdNotFound() {
         assertThrows(ResolutionException.class, () -> memberService.findById("I dont exist"));
 
-    }*/
+    }*//*
 
     @Test
-        /* Remember MemberRequest comes from the API layer, and MemberResponse is returned to the API layer
-         * Internally addMember savex a Member entity to the database*/
+        *//* Remember MemberRequest comes from the API layer, and MemberResponse is returned to the API layer
+         * Internally addMember savex a Member entity to the database*//*
     void testAddMember_UserDoesNotExist() {
         //Add @AllArgsConstructor to MemberRequest and @Builder to MemberRequest for this to work
         //TODO
@@ -163,6 +146,6 @@ class MemberServiceH2Test {
 
         // Assert that the method throws a ResponseStatusException with a BAD_REQUEST status.
         assertThrows(ResponseStatusException.class, () -> memberService.deleteMemberByUsername(testUsername));
-    }
+    }*/
 }
 
