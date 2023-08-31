@@ -40,7 +40,7 @@ public class CarController {
         return carService.addCar(body);
     }
 
-    // Security Anonymous
+    // Security Admin
     @PutMapping("/{id}")
     ResponseEntity<Boolean> editMember(@RequestBody CarRequest body, @PathVariable Long id) {
         return carService.editCar(body, id);
