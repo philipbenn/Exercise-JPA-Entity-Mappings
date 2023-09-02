@@ -1,5 +1,5 @@
 - What are the benefits of using a RESTful API
-  Restful Api er enkelte og lette at forstå. De http metoder såsom (get, put, delete osv) er lette og forståelige, i forhold
+  De http metoder såsom (get, put, delete osv) er lette og forståelige, i forhold
   til andre mere komplekse protokoler som også findes. Ved hjælp af værktøjet postman, kan vi så også let teste vores http-metoder
   og sikre os at de virker som de skal.
   
