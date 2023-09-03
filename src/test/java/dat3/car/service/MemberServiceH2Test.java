@@ -91,17 +91,12 @@ class MemberServiceH2Test {
 
     @Test
     void testEditMemberWithExistingUsername() {
+        Member member = memberService.getMemberByUsername("user1");
+        MemberRequest memberRequest = new MemberRequest(member);
 
-    }
-
-    @Test
-    void testEditMemberNON_ExistingUsernameThrows() {
-
-    }
-
-    @Test
-    void testEditMemberChangePrimaryKeyThrows() {
-
+        memberRequest.setCity("city123");
+        memberService.editMember(memberRequest, "user1");
+        assertEquals("city123", memberService.getMemberByUsername("user1").getCity());
     }
 
     @Test
