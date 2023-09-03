@@ -30,7 +30,9 @@
   koden der kommer op på det fælles repository ikke virker.
   
 - Explain maven, relevant parts in maven, and how maven is used in our CI setup. Explain where maven is used by your GitHub Actions Script(s)
-  ...
+  Maven er noget vi bruger til at bygge projektet. For at bygge projektet skal vi bruge en pom fil. Pom filen indholder plugins osv som vi
+  skal bruge til at bygge projektet. I github bruger vi maven til at sikre vores repository ved hjælp af et script. Scriptet sørger for at
+  alle vores test bliver kørt igennem og bliver godkendt, før det bliver pushet op på repository.
   
 - Understand and chose cloud service models (IaaS, PaaS, SaaS, DBaaS)for your projects -> Just explain what you have used for this handin
   ...
