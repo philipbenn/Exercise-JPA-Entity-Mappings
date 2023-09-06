@@ -2,12 +2,15 @@ package dat3.car.cars.config;
 
 import dat3.car.cars.entity.Car;
 import dat3.car.cars.entity.Member;
+import dat3.car.cars.entity.Reservation;
 import dat3.car.cars.repository.CarRepository;
 import dat3.car.cars.repository.MemberRepository;
+import dat3.car.cars.repository.ReservationRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,16 +20,19 @@ public class DeveloperData implements ApplicationRunner {
     // Constructor Injections
     private final CarRepository carRepository;
     private final MemberRepository memberRepository;
+    private final ReservationRepository reservationRepository;
 
-    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository) {
+    public DeveloperData(CarRepository carRepository, MemberRepository memberRepository, ReservationRepository reservationRepository) {
         this.carRepository = carRepository;
         this.memberRepository = memberRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) {
-       //  createCars();
-       //  createMembers();
+         // createCars();
+         // createMembers();
+         // createReservations();
     }
 
     // Method that initiates members (Made By ChatGPT)
@@ -101,5 +107,35 @@ public class DeveloperData implements ApplicationRunner {
         cars.add(new Car("Subaru", "Outback", 70.0, 9));
 
         carRepository.saveAll(cars);
+    }
+
+    // Da jeg har lagt mine lister ud i metoder, har jeg valgt at instantiere et par nye biler og members, så jeg
+    // har nogle biler og members at binde reservationer på.
+    public void createReservations() {
+        List<Reservation> reservations = new ArrayList<>();
+        List<Car> tempCarList = new ArrayList<>();
+        List<Member> tempMemberList = new ArrayList<>();
+        Car car1 = new Car("Audi", "RS6", 70, 10);
+        Member member1 = new Member("hans_hansen", "hemmeligt", "hans@gmail.com", "Hans", "Hansen", "Hansenvej 12", "Odense", "1234");
+        Car car2 = new Car("Peugeot", "107", 20, 25);
+        Member member2 = new Member("ole_olesen", "hemmeligt123", "ole@gmail.com", "Ole", "Olesen", "Olesen 12", "Odense", "5432");
+        Car car3 = new Car("Bmw", "M3", 90, 15);
+        Member member3 = new Member("john_johnsen", "hemmeligt456", "john@gmail.com", "John", "Johnsen", "Johnsenvej 12", "Odense", "8653");
+        LocalDate time = LocalDate.now();
+
+        tempCarList.add(car1);
+        tempCarList.add(car2);
+        tempCarList.add(car3);
+        tempMemberList.add(member1);
+        tempMemberList.add(member2);
+        tempMemberList.add(member3);
+
+        reservations.add(new Reservation(car1, member1, time));
+        reservations.add(new Reservation(car2, member2, time.plusWeeks(1)));
+        reservations.add(new Reservation(car3, member3, time.plusMonths(1)));
+
+        carRepository.saveAll(tempCarList);
+        memberRepository.saveAll(tempMemberList);
+        reservationRepository.saveAll(reservations);
     }
 }
