@@ -63,4 +63,19 @@ public class CarController {
     void setRentalPriceForCar(@PathVariable Long id, @PathVariable int value) {
         carService.setRentalPriceForCar(id, value);
     }
+
+    @GetMapping("/find/{brand}/{model}")
+    public List<CarResponse> findCarsByBrandAndModel(@PathVariable String brand, @PathVariable String model) {
+        return carService.findCarsByBrandAndModel(brand, model);
+    }
+
+    @GetMapping("/sortedByBestDiscount")
+    public List<CarResponse> sortCarsByBestDiscount() {
+        return carService.getAllCarsOrderByMaxDiscountDesc();
+    }
+
+    @GetMapping("/averageRentalPrice")
+    public Double getAverageRentalPricePerDay() {
+        return carService.getAverageRentalPricePerDay();
+    }
 }

@@ -41,20 +41,25 @@ class MemberController {
 
     // Security Admin
     @PutMapping("/{username}")
-    void editMember(@RequestBody MemberRequest body, @PathVariable String username){
-        memberService.editMember(body,username);
+    void editMember(@RequestBody MemberRequest body, @PathVariable String username) {
+        memberService.editMember(body, username);
     }
 
     // Security Admin
     @PatchMapping("/ranking/{username}/{value}")
     void setRankingForUser(@PathVariable String username, @PathVariable int value) {
-        memberService.setRankingForUser(username,value);
+        memberService.setRankingForUser(username, value);
     }
 
     // Security Admin
     @DeleteMapping("/{username}")
     void deleteMemberByUsername(@PathVariable String username) {
-    memberService.deleteMemberByUsername(username);
+        memberService.deleteMemberByUsername(username);
+    }
+
+    @GetMapping("/reservations")
+    List<MemberResponse> getMembersWithReservations() {
+        return memberService.findAllMembersWithReservations();
     }
 }
 

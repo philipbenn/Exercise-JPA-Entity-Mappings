@@ -42,15 +42,15 @@ public class MemberService {
         return new MemberResponse(newMember, true);
     }
 
-    public Member getMemberByUsername(String username){
+    public Member getMemberByUsername(String username) {
         return memberRepository.findById(username).
-                orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member with this username does not exist"));
+                orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this username does not exist"));
     }
 
     public void editMember(MemberRequest body, String username) {
         Member member = getMemberByUsername(username);
-        if(!body.getUsername().equals(username)){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Cannot change username");
+        if (!body.getUsername().equals(username)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot change username");
         }
         member.setPassword(body.getPassword());
         member.setEmail(body.getEmail());
@@ -77,5 +77,19 @@ public class MemberService {
     public void deleteMemberByUsername(String username) {
         Member member = getMemberByUsername(username);
         memberRepository.delete(member);
+    }
+
+    public List<MemberResponse> findAllMembersWithReservations() {
+        List<Member> membersWithReservations = memberRepository.findByReservationsNotNull();
+        List<MemberResponse> memberResponses = new ArrayList<>();
+
+        for (Member member : membersWithReservations) {
+            MemberResponse response = new MemberResponse(member, false);
+            response.setUsername(member.getUsername());
+            response.setFirstName(member.getFirstName());
+
+            memberResponses.add(response);
+        }
+        return memberResponses;
     }
 }

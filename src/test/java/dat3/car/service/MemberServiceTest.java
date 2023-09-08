@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class MemberServiceH2Test {
+class MemberServiceTest {
 
     @Autowired
     MemberRepository memberRepository;

@@ -34,7 +34,12 @@ public class ReservationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please choose a valid date");
         }
         Member member = memberRepository.findById(body.getUserName()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No member with this id found"));
-        Car car = carRepository.findById((long) body.getCarId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No member with this id found"));
+        Car car = carRepository.findById(body.getCarId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No car with this id found"));
+
+        // Checks if car is already reserved on date
+        if (reservationRepository.existsByCar_IdAndRentalDate(body.getCarId(), body.getDate())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This car is reserved on given date");
+        }
 
         Reservation res = reservationRepository.save(new Reservation(car, member, body.getDate()));
         return new ReservationResponse(res);

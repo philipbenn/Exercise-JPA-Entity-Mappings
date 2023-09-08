@@ -1,9 +1,6 @@
 package dat3.car.cars.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dat3.car.cars.entity.Car;
-import dat3.car.cars.entity.Member;
 import dat3.car.cars.entity.Reservation;
 import lombok.*;
 
@@ -20,6 +17,7 @@ public class ReservationResponse {
     // Attributes
     private Long id;
     private Long carId;
+    private double price;
     private String brand;
     private String model;
     private LocalDate reservationDate;
@@ -28,6 +26,7 @@ public class ReservationResponse {
     public ReservationResponse(Reservation reservation) {
         this.id = reservation.getId();
         this.carId = reservation.getCar().getId();
+        this.price = reservation.getCar().getPricePerDay();
         this.brand = reservation.getCar().getBrand();
         this.model = reservation.getCar().getModel();
         this.reservationDate = reservation.getRentalDate();

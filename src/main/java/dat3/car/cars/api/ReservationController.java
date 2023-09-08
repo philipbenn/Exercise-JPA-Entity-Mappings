@@ -3,10 +3,7 @@ package dat3.car.cars.api;
 import dat3.car.cars.dto.ReservationRequest;
 import dat3.car.cars.dto.ReservationResponse;
 import dat3.car.cars.service.ReservationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/reservations")

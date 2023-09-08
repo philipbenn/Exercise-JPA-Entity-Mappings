@@ -86,4 +86,34 @@ public class CarService {
         car.setBestDiscount(value);
         carRepository.save(car);
     }
+
+    public List<CarResponse> findCarsByBrandAndModel(String brand, String model) {
+        List<Car> cars = carRepository.findAllByBrandAndModel(brand, model);
+        List<CarResponse> response = new ArrayList<>();
+        for (Car car : cars) {
+            CarResponse cr = new CarResponse(car, true);
+            response.add(cr);
+        }
+        return response;
+    }
+
+    public List<CarResponse> getAllCarsOrderByMaxDiscountDesc() {
+        List<Car> cars = carRepository.findAllOrderByMaxDiscountDesc();
+        List<CarResponse> carResponses = new ArrayList<>();
+
+        for (Car car : cars) {
+            CarResponse carResponse = new CarResponse();
+            carResponse.setModel(car.getModel());
+            carResponse.setBrand(car.getBrand());
+            carResponse.setPricePerDay(car.getPricePerDay());
+            carResponse.setBestDiscount(car.getBestDiscount());
+
+            carResponses.add(carResponse);
+        }
+        return carResponses;
+    }
+
+    public Double getAverageRentalPricePerDay() {
+        return carRepository.findAverageRentalPricePerDay();
+    }
 }
