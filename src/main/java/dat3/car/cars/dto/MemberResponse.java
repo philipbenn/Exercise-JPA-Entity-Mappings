@@ -27,6 +27,7 @@ public class MemberResponse {
     private String zip;
     private LocalDateTime created;
 
+
     // Date Format
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime edited;

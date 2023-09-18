@@ -6,6 +6,7 @@ import dat3.car.cars.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/reservations")
 public class ReservationController {
 
