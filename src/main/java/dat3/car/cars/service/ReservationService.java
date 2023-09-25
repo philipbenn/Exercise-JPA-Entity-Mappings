@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -28,20 +30,29 @@ public class ReservationService {
         this.carRepository = carRepository;
     }
 
-    public ReservationResponse reserveCar(ReservationRequest body) {
-        // Checks if reservation date is before current date
-        if (body.getDate().isBefore(LocalDate.now())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please choose a valid date");
+    public ReservationResponse reserveCar(ReservationRequest body){
+        if(body.getDate().isBefore(LocalDate.now())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Date in past not allowed");
         }
-        Member member = memberRepository.findById(body.getUserName()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No member with this id found"));
-        Car car = carRepository.findById(body.getCarId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No car with this id found"));
-
-        // Checks if car is already reserved on date
-        if (reservationRepository.existsByCar_IdAndRentalDate(body.getCarId(), body.getDate())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This car is reserved on given date");
+        Member member = memberRepository.findById(body.getUserName()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"No member with this id found"));
+        Car car = carRepository.findById(body.getCarId()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"No Car with this id found"));
+        if(reservationRepository.existsByCar_IdAndRentalDate(car.getId(),body.getDate())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Car is reserved for this date");
         }
-
         Reservation res = reservationRepository.save(new Reservation(car, member, body.getDate()));
-        return new ReservationResponse(res);
+        return  new ReservationResponse(res);
+    }
+
+    public List<ReservationResponse> getReservations(){
+        List<Reservation> reservations = reservationRepository.findAll();
+        List<ReservationResponse> response = reservations.stream().map(res-> new ReservationResponse(res)).collect(Collectors.toList());
+        return response;
+    }
+    public List<ReservationResponse> getReservationsForUser(String username) {
+        Member member = memberRepository.findById(username).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"User Not Found"));
+        List<ReservationResponse> reservations = member.getReservations().stream().map(r->new ReservationResponse(r)).toList();
+        return reservations;
     }
 }
